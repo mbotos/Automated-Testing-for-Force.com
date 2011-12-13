@@ -1,0 +1,13 @@
+#Mon Dec 12 17:29:08 EST 2011
+eclipse.preferences.version=1
+endpointApiVersion=23.0
+endpointEnvironment=Production/Developer Edition
+endpointServer=www.salesforce.com
+httpsProtocol=true
+ideVersion=23.0
+keependpoint=false
+metadataFormatVersion=23.0
+namespacePrefix=
+packageName=unpackaged
+readTimeout=400
+username=mbotos@automatedtest.com

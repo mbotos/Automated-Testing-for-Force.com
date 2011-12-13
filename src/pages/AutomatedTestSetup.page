@@ -1,0 +1,39 @@
+<apex:page controller="AutomatedTestSetup_Controller">
+<apex:form >
+
+<apex:pageBlock title="Automated Test Setup">
+
+<apex:pageBlockSection title="Scheduled Jobs">
+<div>
+	<p>Click the button to setup the following Scheduled Jobs:</p>
+	<ol>
+		<li>TestRunner - 11:00 PM, Sun-Thu - Starts all Automated Test Runs</li>
+		<li>TestRunnerResults - 11:30 PM, Sun-Thu - Emails results of all completed Automated Test Runs</li>
+	</ol>
+</div>
+<apex:commandButton value="Schedule Jobs" action="{!scheduleJobs}"/>
+</apex:pageBlockSection>
+
+<apex:pageBlockSection title="Automated Test Run">
+<div>
+	<p>Click the button to create an Automated Test Run.</p>
+	<p>This will run all classes named *Test and email the results to the current user.</p>
+	<p>You can adjust these settings in the Automated Test Run tab.</p>
+</div>
+<apex:commandButton value="Created Automated Test Run" action="{!createTestRun}"/>
+</apex:pageBlockSection>
+
+<apex:pageBlockSection title="Try it!">
+<p>Click the button to run the Automated Test Run.</p>
+<apex:commandButton value="Run Tests" action="{!run}"/>
+
+<p><strong>Wait a few minutes</strong> and then click the button to email the results to yourself.</p>
+<apex:commandButton value="Email Results" action="{!email}"/>
+
+<p>The Scheduled Jobs will send you a similar email each night.</p>
+</apex:pageBlockSection>
+
+</apex:pageBlock>
+
+</apex:form>
+</apex:page>
