@@ -87,7 +87,12 @@
         <type>Text</type>
     </nameField>
     <pluralLabel>Automated Test Runs</pluralLabel>
-    <searchLayouts/>
+    <searchLayouts>
+        <customTabListAdditionalFields>Active__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Emails__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Excluded_Classes__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Query__c</customTabListAdditionalFields>
+    </searchLayouts>
     <sharingModel>ReadWrite</sharingModel>
     <startsWith>Vowel</startsWith>
 </CustomObject>
