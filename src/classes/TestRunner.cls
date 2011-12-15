@@ -54,7 +54,11 @@ global class TestRunner implements Schedulable {
            [SELECT Outcome, ApexClass.Name, MethodName, Message, StackTrace 
             FROM ApexTestResult 
             WHERE AsyncApexJobId=:job.Name];
+            
+        return emailMethodStatus(job, results);
+    }
         
+    public static Messaging.SingleEmailMessage emailMethodStatus(Test_Runner_Job__c job, ApexTestResult[] results) {
         integer passed = 0;
         integer total = 0;
         

@@ -15,4 +15,12 @@ public with sharing class AutomatedTestSetup_Controller {
 	public void email() {
 		TestRunnerResults.emailUnprocessedJobStatus();
 	}
+	
+	static testMethod void test() {
+		AutomatedTestSetup_Controller controller = new AutomatedTestSetup_Controller();
+		controller.scheduleJobs();
+		controller.createTestRun();
+		controller.run();
+		controller.email();
+	}
 }

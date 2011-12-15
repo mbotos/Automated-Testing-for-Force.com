@@ -27,7 +27,17 @@ private class TestRunner_Test {
 		emails.addAll(mail.getToAddresses());
 		System.assert(emails.contains(run.Emails__c), 'Run emails not in mail');
 		
-		System.assert(!mail.getHtmlBody().contains('Test Failures'), 'Failues appear for passing tests');
+		System.assert(!mail.getHtmlBody().contains('Test Failures'), 'Failures appear for passing tests');
+	}
+	
+	public static testMethod void emailCreatedForFailures() {
+		list<ApexTestResult> results = new list<ApexTestResult>();
+		ApexTestResult result = new ApexTestResult(Outcome = 'Fail', ApexClass = [select Id, Name from ApexClass limit 1], MethodName = 'TestMethod', Message  = 'Test Message', StackTrace = 'Test Stack Trace'); 
+		
+		results.add(result);
+		Messaging.SingleEmailMessage mail = TestRunner.emailMethodStatus(job, results);		
+		
+		System.assert(mail.getHtmlBody().contains(result.Message), 'No message for failures');				
 	}
 	
 	public static testMethod void testRunnerResultsProcessesJobs() {
