@@ -47,6 +47,7 @@
         <relationshipLabel>Test Runner Jobs</relationshipLabel>
         <relationshipName>Test_Runner_Jobs</relationshipName>
         <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
         <type>MasterDetail</type>
         <writeRequiresMasterRead>false</writeRequiresMasterRead>
     </fields>

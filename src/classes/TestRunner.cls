@@ -14,7 +14,7 @@ global class TestRunner implements Schedulable {
     public static list<ID> enqueueTests() {
     	list<Id> jobIds = new list<Id>();
     
-    	for (Automated_Test_Run__c run : [select Query__c, Excluded_Classes__c from Automated_Test_Run__c where Active__c = true]) {
+    	for (Automated_Test_Run__c run : [select Query__c, Excluded_Classes__c, Email_on_Pass__c from Automated_Test_Run__c where Active__c = true]) {
     		string whereExcluded = '';
     		if (run.Excluded_Classes__c != null) {
     			for (string c : run.Excluded_Classes__c.split('[,\\s]+')) {
@@ -81,20 +81,25 @@ global class TestRunner implements Schedulable {
         failTable += '</table>';
         
         string body = '<p>' + passed + '/' + total + ' tests passed</p>\n';
+        boolean allPassed = passed == total;
         
-        if (passed < total) {
+        if (!allPassed) {
         	body += '<p>Test Failures:</p>\n' + failTable;
         }
         
-        Messaging.SingleEmailMessage mail = new Messaging.SingleEmailMessage();
-        mail.setToAddresses(job.Automated_Test_Run__r.Emails__c.split('[,\\s]+'));
-        mail.setSubject(job.Automated_Test_Run__r.Name + ' Automated Test Results: ' + (passed < total ? 'Fail' : 'Pass'));
-        mail.setHtmlBody(body);
-        System.debug(mail);
-
-		if (!Test.isRunningTest()) {
-        	Messaging.sendEmail(new Messaging.SingleEmailMessage[] { mail });
-		}
+        Messaging.SingleEmailMessage mail;
+        
+        if ((allPassed && job.Automated_Test_Run__r.Email_on_Pass__c) || !allPassed) { 
+	        mail = new Messaging.SingleEmailMessage();
+	        mail.setToAddresses(job.Automated_Test_Run__r.Emails__c.split('[,\\s]+'));
+	        mail.setSubject(job.Automated_Test_Run__r.Name + ' Automated Test Results: ' + (passed < total ? 'Fail' : 'Pass'));
+	        mail.setHtmlBody(body);
+	        System.debug(mail);
+	
+			if (!Test.isRunningTest()) {
+	        	Messaging.sendEmail(new Messaging.SingleEmailMessage[] { mail });
+			}
+        }
 		
 		return mail;
     }

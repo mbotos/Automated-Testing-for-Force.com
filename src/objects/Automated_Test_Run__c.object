@@ -47,6 +47,14 @@
         <type>Checkbox</type>
     </fields>
     <fields>
+        <fullName>Email_on_Pass__c</fullName>
+        <defaultValue>true</defaultValue>
+        <externalId>false</externalId>
+        <inlineHelpText>Send email when all tests pass</inlineHelpText>
+        <label>Email on Pass</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
         <fullName>Emails__c</fullName>
         <description>Emails where results will be sent</description>
         <externalId>false</externalId>
