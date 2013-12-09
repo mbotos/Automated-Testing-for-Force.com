@@ -2,8 +2,12 @@ global class TestRunner implements Schedulable {
 	// derived from http://www.salesforce.com/us/developer/docs/apexcode/Content/apex_testing_unit_tests_running.htm#APISectionTitle
 
 	public static void setup() {
-		system.schedule('TestRunner', '0 0 23 ? * SUN-THU', new TestRunner());
-		system.schedule('TestRunnerResults', '0 30 23 ? * SUN-THU', new TestRunnerResults());
+		try {
+			system.schedule('TestRunner', '0 0 23 ? * SUN-THU', new TestRunner());
+			system.schedule('TestRunnerResults', '0 30 23 ? * SUN-THU', new TestRunnerResults());
+		} catch (Asyncexception ex) {
+			system.debug('Job already scheduled');
+		}
 	}
 	
    global void execute(SchedulableContext SC) {
