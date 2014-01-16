@@ -10,7 +10,7 @@ public with sharing class AutomatedTestSetup_Controller {
 	}
 	
 	public void refreshHasTestRun() {
-		integer runCount = [select count() from Automated_Test_Run__c];
+		integer runCount = [select count() from Automated_Test_Run__c limit 1];
 		hasTestRun = runCount > 0;		
 	}
 	
