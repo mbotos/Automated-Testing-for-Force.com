@@ -47,6 +47,15 @@
 <p>The Scheduled Jobs will send you a similar email each night.</p>
 </apex:pageBlockSection>
 
+<apex:pageBlockSection title="Troubleshooting" columns="1">
+
+<p><strong><a href="https://help.salesforce.com/HTViewSolution?id=000176020&amp;language=en_US">Email Privileges Revoked message when sending mass emails from Production or Sandbox</a></strong></p>
+
+<p>If you created a sandbox after the Spring '13 release, go to 
+<a href="/email/admin/editOrgEmailSettings.apexp">Your Name > Setup > Email Administration > Deliverability</a> 
+and choose <strong>Access Level: All Emails.</strong></p>
+</apex:pageBlockSection>
+
 </apex:pageBlock>
 
 </apex:form>
