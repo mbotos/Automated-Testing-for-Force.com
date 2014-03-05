@@ -14,17 +14,22 @@ global class TestRunner implements Schedulable {
       enqueueTests(); 
    }
 	
-    // Enqueue all classes ending in "Test".  
+    // Enqueue all unit test classes as spec'd by Automated_Test_Run__c record(s)
     public static list<ID> enqueueTests() {
     	list<Id> jobIds = new list<Id>();
     
-    	for (Automated_Test_Run__c run : [select Query__c, Excluded_Classes__c, Email_on_Pass__c from Automated_Test_Run__c where Active__c = true]) {
+		for (Automated_Test_Run__c run : [select Query__c, Excluded_Classes__c, 
+		Email_on_Pass__c, Exclude_Managed_Packages__c
+		from Automated_Test_Run__c where Active__c = true]) {
     		string whereExcluded = '';
     		if (run.Excluded_Classes__c != null) {
     			for (string c : run.Excluded_Classes__c.split('[,\\s]+')) {
     				whereExcluded += 'and Name != \'' + c + '\'';
     			}
     		}
+			if (run.Exclude_Managed_Packages__c == True) {
+			   whereExcluded += ' AND NameSpacePrefix = null';
+			}
     		
     		string query = 'SELECT Id FROM ApexClass WHERE Name LIKE \'' + run.Query__c + '\' ' + whereExcluded;
 	        ApexClass[] testClasses = Database.query(query);
