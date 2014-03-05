@@ -6,7 +6,7 @@ This project allows you to natively schedule automated test runs of your Force.c
 Installation
 ------------
 
-For an easy, 1-click installation: [Automated Testing for Force.com Package](https://login.salesforce.com/packaging/installPackage.apexp?p0=04ti0000000Cjj9) ([sandbox](https://test.salesforce.com/packaging/installPackage.apexp?p0=04ti0000000Cjj9)).
+For an easy, 1-click installation: [Automated Testing for Force.com Package](https://login.salesforce.com/packaging/installPackage.apexp?p0=04ti0000000CjjE) ([sandbox](https://test.salesforce.com/packaging/installPackage.apexp?p0=04ti0000000CjjE)).
 
 To use the source code with a Salesforce org: [GitHub Salesforce Deploy Tool](https://githubsfdeploy.herokuapp.com/?owner=mbotos&repo=Automated-Testing-for-Force.com)   
 
@@ -14,7 +14,13 @@ Setup
 -----
 
 1. Navigate to the Automated Testing app and Automated Test Setup tab.
-2. Follow the instructions.   
+2. Follow the instructions. 
+
+Troubleshooting
+---------------
+**[Email Privileges Revoked message when sending mass emails from Production or Sandbox](https://help.salesforce.com/HTViewSolution?id=000176020&language=en_US)**
+
+If you created a sandbox after the Spring '13 release, go to [Your Name > Setup > Email Administration > Deliverability](https://test.salesforce.com/email/admin/editOrgEmailSettings.apexp) and choose Access Level: All Emails.  
 
 Limitations
 -----------

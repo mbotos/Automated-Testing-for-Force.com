@@ -69,7 +69,6 @@
         <externalId>false</externalId>
         <inlineHelpText>Check this box to exclude all Managed Package Unit Tests</inlineHelpText>
         <label>Exclude Managed Packages</label>
-        <trackTrending>false</trackTrending>
         <type>Checkbox</type>
     </fields>
     <fields>
