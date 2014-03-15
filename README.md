@@ -6,7 +6,7 @@ This project allows you to natively schedule automated test runs of your Force.c
 Installation
 ------------
 
-For an easy, 1-click installation: [Automated Testing for Force.com Package](https://login.salesforce.com/packaging/installPackage.apexp?p0=04ti0000000CjjE) ([sandbox](https://test.salesforce.com/packaging/installPackage.apexp?p0=04ti0000000CjjE)).
+For an easy, 1-click installation: [Automated Testing for Force.com Package](https://login.salesforce.com/packaging/installPackage.apexp?p0=04ti0000000CqAV) ([sandbox](https://test.salesforce.com/packaging/installPackage.apexp?p0=04ti0000000CqAV)).
 
 To use the source code with a Salesforce org: [GitHub Salesforce Deploy Tool](https://githubsfdeploy.herokuapp.com/?owner=mbotos&repo=Automated-Testing-for-Force.com)   
 

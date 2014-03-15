@@ -5,12 +5,11 @@ global class TestRunnerResults implements Schedulable {
    }
    
    public static list<Messaging.SingleEmailMessage> emailUnprocessedJobStatus() {
-   	  list<Messaging.SingleEmailMessage> messages = new list<Messaging.SingleEmailMessage>();
-      
 	  list<Test_Runner_Job__c> jobs = getUnprocessedJobs();
 	  
+   	  list<Messaging.SingleEmailMessage> messages = TestRunner.emailMethodStatus(jobs);
+      
 	  for (Test_Runner_Job__c job : jobs) {
-	      messages.add(TestRunner.emailMethodStatus(job)); 
 	      job.Processed__c = true;
 	  }
 	  

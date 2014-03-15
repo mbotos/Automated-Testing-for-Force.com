@@ -39,13 +39,13 @@ private class TestRunner_Test {
         ApexTestResult result = new ApexTestResult(Outcome = 'Fail', ApexClass = [select Id, Name from ApexClass limit 1], MethodName = 'TestMethod', Message  = 'Test Message', StackTrace = 'Test Stack Trace');      
         results.add(result);
         
-        job = [Select t.Name, 
+        list<Test_Runner_Job__c> jobs = [Select t.Name, 
           t.Automated_Test_Run__r.Emails__c, 
           t.Automated_Test_Run__r.Email_on_Pass__c, 
           t.Automated_Test_Run__r.Name, 
           t.Automated_Test_Run__c 
           From Test_Runner_Job__c t where t.Id = :job.Id];
-        mail = TestRunner.emailMethodStatus(job, results);      
+        mail = TestRunner.emailMethodStatus(jobs, results)[0];      
         
         System.assert(mail.getHtmlBody().contains(result.Message), 'No message for failures');              
     }
