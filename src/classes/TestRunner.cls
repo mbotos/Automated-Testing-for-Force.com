@@ -58,58 +58,68 @@ global class TestRunner implements Schedulable {
         return jobIds;
     }
 
-    public static Messaging.SingleEmailMessage emailMethodStatus(Test_Runner_Job__c job) {
+    public static list<Messaging.SingleEmailMessage> emailMethodStatus(list<Test_Runner_Job__c> jobs) {
+        set<string> jobNames = new set<string>();
+        for (Test_Runner_Job__c job : jobs) {
+        	jobNames.add(job.Name);
+        }
+        
         ApexTestResult[] results = 
-           [SELECT Outcome, ApexClass.Name, MethodName, Message, StackTrace 
+           [SELECT AsyncApexJobId, Outcome, ApexClass.Name, MethodName, Message, StackTrace 
             FROM ApexTestResult 
-            WHERE AsyncApexJobId=:job.Name];
+            WHERE AsyncApexJobId in :jobNames];
             
-        return emailMethodStatus(job, results);
+        return emailMethodStatus(jobs, results);
     }
         
-    public static Messaging.SingleEmailMessage emailMethodStatus(Test_Runner_Job__c job, ApexTestResult[] results) {
-        integer passed = 0;
-        integer total = 0;
+    public static list<Messaging.SingleEmailMessage> emailMethodStatus(list<Test_Runner_Job__c> jobs, ApexTestResult[] results) {
+        list<Messaging.SingleEmailMessage> messages = new list<Messaging.SingleEmailMessage>();
         
-        string failTable = '<table border="1" cellpadding="5px">';
-        string className = '';
-            
-        for (ApexTestResult atr : results) {
-        	if (atr.Outcome == 'Pass') {
-        		passed++;
-        	} else {
-        		if (atr.ApexClass.Name != className) {
-        			className = atr.ApexClass.Name;
-        			failTable += '<tr style="background: #ddd; font-weight: bold;"><td colspan="2">' + className + '</td></tr>\n';
-        		}
-	            failTable += '<tr><td>' + atr.MethodName + '</td><td> ' + atr.message + '</td></tr>\n';
-        	}
-        	total++;
-        }
-        
-        failTable += '</table>';
-        
-        string body = '<p>' + passed + '/' + total + ' tests passed</p>\n';
-        boolean allPassed = passed == total;
-        
-        if (!allPassed) {
-        	body += '<p>Test Failures:</p>\n' + failTable;
-        }
-        
-        Messaging.SingleEmailMessage mail;
-        
-        if ((allPassed && job.Automated_Test_Run__r.Email_on_Pass__c) || !allPassed) { 
-	        mail = new Messaging.SingleEmailMessage();
-	        mail.setToAddresses(job.Automated_Test_Run__r.Emails__c.split('[,\\s]+'));
-	        mail.setSubject(job.Automated_Test_Run__r.Name + ' Automated Test Results: ' + (passed < total ? 'Fail' : 'Pass'));
-	        mail.setHtmlBody(body);
-	        System.debug(mail);
-	
-			if (!Test.isRunningTest()) {
-	        	Messaging.sendEmail(new Messaging.SingleEmailMessage[] { mail });
-			}
-        }
+        for (Test_Runner_Job__c job : jobs) {
+	        integer passed = 0;
+	        integer total = 0;
+	        
+	        string failTable = '<table border="1" cellpadding="5px">';
+	        string className = '';
+	            
+	        for (ApexTestResult atr : results) {
+	        	if (atr.AsyncApexJobId == job.Id) {
+		        	if (atr.Outcome == 'Pass') {
+		        		passed++;
+		        	} else {
+		        		if (atr.ApexClass.Name != className) {
+		        			className = atr.ApexClass.Name;
+		        			failTable += '<tr style="background: #ddd; font-weight: bold;"><td colspan="2">' + className + '</td></tr>\n';
+		        		}
+			            failTable += '<tr><td>' + atr.MethodName + '</td><td> ' + atr.message + '</td></tr>\n';
+		        	}
+		        	total++;
+		        }
+	        }
+	        
+	        failTable += '</table>';
+	        
+	        string body = '<p>' + passed + '/' + total + ' tests passed</p>\n';
+	        boolean allPassed = passed == total;
+	        
+	        if (!allPassed) {
+	        	body += '<p>Test Failures:</p>\n' + failTable;
+	        }
+	        
+	        if ((allPassed && job.Automated_Test_Run__r.Email_on_Pass__c) || !allPassed) { 
+		        Messaging.SingleEmailMessage mail = new Messaging.SingleEmailMessage();
+		        mail.setToAddresses(job.Automated_Test_Run__r.Emails__c.split('[,\\s]+'));
+		        mail.setSubject(job.Automated_Test_Run__r.Name + ' Automated Test Results: ' + (passed < total ? 'Fail' : 'Pass'));
+		        mail.setHtmlBody(body);
+		        System.debug(mail);
+		        messages.add(mail);
+	        }
+        }      
+
+		if (!Test.isRunningTest()) {
+        	Messaging.sendEmail(messages);
+		}
 		
-		return mail;
+		return messages;
     }
  }
