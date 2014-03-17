@@ -36,7 +36,7 @@ private class TestRunner_Test {
     
     public static testMethod void emailCreatedForFailures() {
         list<ApexTestResult> results = new list<ApexTestResult>();
-        ApexTestResult result = new ApexTestResult(Outcome = 'Fail', ApexClass = [select Id, Name from ApexClass limit 1], MethodName = 'TestMethod', Message  = 'Test Message', StackTrace = 'Test Stack Trace');      
+        ApexTestResult result = new ApexTestResult(AsyncApexJobId = job.Id, Outcome = 'Fail', ApexClass = [select Id, Name from ApexClass limit 1], MethodName = 'TestMethod', Message  = 'Test Message', StackTrace = 'Test Stack Trace');      
         results.add(result);
         
         list<Test_Runner_Job__c> jobs = [Select t.Name, 
