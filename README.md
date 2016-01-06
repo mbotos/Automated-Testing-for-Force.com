@@ -1,7 +1,10 @@
+Salesforce Testing Automation
+=============================
+
 About
 -----    
 
-This project allows you to natively schedule automated test runs of your Force.com Apex code and email the results to multiple addresses.
+Salesforce testing automation runs all tests and emails your team. Native Force.com Apex code delivers lightweight Salesforce continuous integration. Schedule daily, nightly, or hourly recursion unit tests.
 
 Installation
 ------------
