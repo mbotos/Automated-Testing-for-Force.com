@@ -6,12 +6,10 @@ About
 
 Salesforce testing automation runs all tests and emails your team. Native Force.com Apex code delivers lightweight Salesforce continuous integration. Schedule daily, nightly, or hourly recursion unit tests.
 
-Installation
+1-Click Installation
 ------------
 
-For an easy, 1-click installation: [Automated Testing for Force.com Package](https://login.salesforce.com/packaging/installPackage.apexp?p0=04ti0000000CqAV) ([sandbox](https://test.salesforce.com/packaging/installPackage.apexp?p0=04ti0000000CqAV)).
-
-To use the source code with a Salesforce org: [GitHub Salesforce Deploy Tool](https://githubsfdeploy.herokuapp.com/?owner=mbotos&repo=Automated-Testing-for-Force.com)   
+[1-click installation packages are sponsored by Alvorden](http://alvorden.com/install-automated-testing?utm_source=github&utm_medium=automated-testing).
 
 Setup
 -----
