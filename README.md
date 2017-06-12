@@ -8,11 +8,6 @@ Salesforce testing automation runs all tests and emails your team. Native Force.
 
 ![Automated Testing Setup Screenshot](https://github.com/mbotos/Automated-Testing-for-Force.com/blob/master/Automated%20Testing%20Setup%20Screenshot.png)
 
-1-Click Installation
-------------
-
-[1-click installation packages are sponsored by Alvorden](http://alvorden.com/install-automated-testing?utm_source=github&utm_medium=automated-testing).
-
 Setup
 -----
 
